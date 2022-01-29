@@ -93,10 +93,11 @@ if __name__ == '__main__':
     np.random.seed(2022)
     channel_size = 5
     feature_size = 3
+    sequence_length = 100
     raw_data = load_data()
     print("finish_loading")
     model0 = MRNN.MRNN(channel_size, 32)
-    model1 = GRU_D.GRU_D(channel_size, 32)
+    model1 = GRU_D.GRU_D(channel_size, 32, sequence_length)
     model2 = NAOMI.NAOMI(64, channel_size)
     model3 = En_decoder.generate_model(64, channel_size)
     model4 = DeepMVI.MultiHeadAttentionMVI()
@@ -109,5 +110,5 @@ if __name__ == '__main__':
         running_time = (end_time - start_time) / epoch_count
         with open('result_{}.txt'.format(model.model_name), 'a') as f:
             f.writelines(
-                "\n large miss: model{} reach a min_loss of {} with a running time of {} in large missing".format(
+                "\n low miss: model{} reach a min_loss of {} with a running time of {} in low missing".format(
                     model.model_name, min_loss, running_time))
