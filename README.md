@@ -10,7 +10,7 @@ The following approaches are included:
 5. DeepMVI.py: "Missing Value Imputation on Multidimensional Time Series"
 6. SSIM.py: "SSIM—A Deep Learning Approach for Recovering Missing Time Series Sensor Data"
 
-We use the past-five years 5-minute HSI data, including its open, high, low, close and volume (5 channels in total), as the basic dataset in this experiment. To do the training and testing, we separate the sequence of HSI data into around 1000 data clips with a length of 100. 70% of these data clips are randomly selected for training while the rest are used for testing. 
+We use the past five years 5-minute HSI data, including its open, high, low, close and volume (5 channels in total), as the basic dataset in this experiment. To do the training and testing, we separate the sequence of HSI data into around 1000 data clips with a length of 100. 70% of these data clips are randomly selected for training while the rest are used for testing. 
 
 the MSE loss is used as the criteria for comparing their performances in the experiment. https://www.tensorflow.org/api_docs/python/tf/keras/metrics/mean_squared_error. In addition, we record the average running time of each approach for each epoch as a reference.
 
