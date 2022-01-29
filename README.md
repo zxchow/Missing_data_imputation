@@ -24,7 +24,7 @@ To reproduce our results, please run the main.py
 | Approach  | MSE loss (the lower the better) |  Running time (second) |
 | ------------- | ------------- | ---------- |
 | MRNN  | 7590.74  | 2.36  |
-| GRU-D  | 26664.39  | 3.77  |
+| GRU-D  | 5690.44  | 3.99  |
 | NAOMI  | 5684.99  | 14.48  |
 | En-decoder  | 299.37 | 1.54  |
 | DeepMVI  | 326.89  | 0.58  |
