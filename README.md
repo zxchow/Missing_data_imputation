@@ -1,6 +1,6 @@
 # Missing_data_imputation
 
-This repository implements six different data imputation approaches and compares the performances in imputating 5-minutes HSI data. 
+This repository implements six different data imputation approaches in tensorflow 2.7.0 and compares the performances in imputating 5-minutes HSI data. 
 
 The following approaches are included:
 1. MRNN.py: "Estimating Missing Data in Temporal Data Streams Using Multi-directional Recurrent Neural Networks"
