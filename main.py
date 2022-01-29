@@ -101,7 +101,7 @@ if __name__ == '__main__':
     model3 = En_decoder.generate_model(64, channel_size)
     model4 = DeepMVI.MultiHeadAttentionMVI()
     model5 = SSIM.SSIM(32, channel_size, feature_size)
-    model_list = [model1, model2, model3, model4, model5]
+    model_list = [model0, model1, model2, model3, model4, model5]
     for i, model in enumerate(model_list):
         start_time = time.time()
         min_loss = model_run(model, epoch_count)
