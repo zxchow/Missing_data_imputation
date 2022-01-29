@@ -40,7 +40,7 @@ In a word, we should use En-decoder for data imputation as it has the lowest imp
 | Approach  | MSE loss (the lower the better) |  Runing time |
 | ------------- | ------------- | -----------|
 | MRNN  | 7591.04  | 2.25  |
-| GRU-D  | 33552.08  | 3.50  |
+| GRU-D  | 5679.79  | 3.98  |
 | NAOMI  | 5800.70  | 17.82  |
 | En-decoder  | 346.30  | 1.87  |
 | DeepMVI  | 417.65  | 0.62  |
