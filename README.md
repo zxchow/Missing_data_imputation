@@ -20,8 +20,9 @@ To reproduce our results, please run the main.py
 
 # Small missing results
 
+
 | Approach  | MSE loss (the lower the better) |  Running time (second) |
-| ------------- | ------------- |
+| ------------- | ------------- | ---------- |
 | MRNN  | 7590.74  | 2.36  |
 | GRU-D  | 26664.39  | 3.77  |
 | NAOMI  | 5684.99  | 14.48  |
@@ -37,7 +38,7 @@ In a word, we should use En-decoder for data imputation as it has the lowest imp
 
 
 | Approach  | MSE loss (the lower the better) |  Runing time |
-| ------------- | ------------- |
+| ------------- | ------------- | -----------|
 | MRNN  | Content Cell  | Content Cell  |
 | GRU-D  | Content Cell  | Content Cell  |
 | NAOMI  | Content Cell  | Content Cell  |
