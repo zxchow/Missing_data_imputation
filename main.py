@@ -43,16 +43,14 @@ def loss_function(raw_data, imputed_data, c=0, contain_loss=False):
         return tf.keras.losses.mean_squared_error(raw_data, imputed_data)
 
 
-def model_run(model, epoch_count):
+def model_run(model, epoch_count, raw_data):
     batch_size = 64
     channel_size = 5
     feature_size = 3
-    raw_data = load_data()
     raw_data = tf.cast(raw_data, tf.float32)
     # raw_data = np.ones((967, 5, 100, 3))
     dataset_size = raw_data.shape[0]
     contain_loss = False
-    print("finish_loading")
     raw_data = tf.data.Dataset.from_tensor_slices(raw_data)
     raw_data = raw_data.shuffle(dataset_size, reshuffle_each_iteration=False)
     train_size = int(0.7 * dataset_size) // batch_size * batch_size
@@ -95,16 +93,18 @@ if __name__ == '__main__':
     np.random.seed(2022)
     channel_size = 5
     feature_size = 3
+    raw_data = load_data()
+    print("finish_loading")
     model0 = MRNN.MRNN(channel_size, 32)
     model1 = GRU_D.GRU_D(channel_size, 32)
     model2 = NAOMI.NAOMI(64, channel_size)
     model3 = En_decoder.generate_model(64, channel_size)
     model4 = DeepMVI.MultiHeadAttentionMVI()
     model5 = SSIM.SSIM(32, channel_size, feature_size)
-    model_list = [model0, model1, model2, model3, model4, model5]
+    model_list = [model3]
     for i, model in enumerate(model_list):
         start_time = time.time()
-        min_loss = model_run(model, epoch_count)
+        min_loss = model_run(model, epoch_count, raw_data)
         end_time = time.time()
         running_time = (end_time - start_time) / epoch_count
         with open('result_{}.txt'.format(model.model_name), 'a') as f:
