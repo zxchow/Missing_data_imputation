@@ -44,6 +44,6 @@ In a word, we should use En-decoder for data imputation as it has the lowest imp
 | NAOMI  | 5800.70  | 17.82  |
 | En-decoder  | 346.30  | 1.87  |
 | DeepMVI  | 417.65  | 0.62  |
-| SSIM  | 37479.36  | Content Cell  |
+| SSIM  | 26813.42  | 24.57  |
 
 In the mode of high missing rate, En-decoder also attains a lowest MSE loss of only 346.30 followed by the DeepMVI with a mse loss of 417.65. Compared the results in low missing rate, the distance between DeepMVI and En-decoder is increased. This distance could become enen larger along with the rising of the missing rate. Therefore, despite DeepMVI requires a shorter running time, it would be better to choose En-decoder to maintain an accurate imputation if the missing rate is high.
