@@ -28,7 +28,7 @@ To reproduce our results, please run the main.py
 | NAOMI  | 5684.99  | 14.48  |
 | En-decoder  | 299.37 | 1.54  |
 | DeepMVI  | 326.89  | 0.58  |
-| SSIM  | 26796.87  | 23.24  |
+| SSIM  | 26796.44  | 17.81  |
 
 In mode of low missing rate, En-decoder reaches the best imputation accuracy of a 299.37 mse loss with a average running time of 1.54 seconds. Compared to En-decoder, DeepMVI attains a slightly higher imputation error of a 326.89 mse loss but it shortens the running time significatly, from 1.54 seconds to 0.58 second. Other methods perform worse than the aforementioned two approaches in terms of both imputation accuracy and running time.
 
