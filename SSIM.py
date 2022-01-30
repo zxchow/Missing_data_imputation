@@ -1,20 +1,22 @@
 import tensorflow as tf
 from MRNN import MyLinear
 
-
 """
 Implementation of paper "SSIM—A Deep Learning Approach for Recovering Missing Time Series Sensor Data"
 """
+
+
 class SSIM(tf.keras.Model):
     def __init__(self, encoder_units, channel_size=5, feature_size=3):
         super(SSIM, self).__init__()
         self.data_dimension = channel_size
         self.rnn_units = encoder_units * 2
-        self.encoder = tf.keras.layers.Bidirectional(tf.keras.layers.LSTM(encoder_units, return_sequences=True))
-        self.decoder = tf.keras.layers.LSTM(self.rnn_units)
-        self.attention = MyLinear(encoder_units*2 + self.data_dimension, 1)
-        self.dense = MyLinear(encoder_units*2 + self.rnn_units, self.data_dimension)
-        self.learning_rate = 0.1
+        self.encoder = tf.keras.layers.Bidirectional(
+            tf.keras.layers.LSTM(encoder_units, return_sequences=True, return_state=True))
+        self.decoder = tf.keras.layers.LSTM(self.rnn_units, return_state=True)
+        self.attention = MyLinear(encoder_units * 2 + self.data_dimension, 1)
+        self.dense = MyLinear(encoder_units * 2 + self.rnn_units, self.data_dimension)
+        self.learning_rate = 1
         self.c = 1
         self.model_name = 'SSIM'
 
@@ -29,14 +31,19 @@ class SSIM(tf.keras.Model):
 
         seq_res = []
 
-        hidden = encoder_output[:, -1, :]
+        hidden = encoder_output[0][:, -1]
+        state1 = encoder_output[2]
+        state2 = encoder_output[4]
+        state = tf.concat([state1, state2], axis=-1)
         x_t = x[:, 0, :]
         for t in range(1, sequence_length):
+
             attention_vector = tf.reduce_sum(tf.multiply(tf.nn.softmax(self.attention(
-                tf.concat([tf.stack([x_t] * sequence_length, axis=1), encoder_output], axis=2)
-            ), axis=1), encoder_output), axis=1)
-            # hidden = self.decoder(tf.expand_dims(tf.concat([x_t, hidden, attention_vector], axis=1), axis=1))
-            hidden = self.decoder(tf.expand_dims(x_t, axis=1), initial_state=[hidden, attention_vector])
+                tf.concat([tf.stack([x_t] * sequence_length, axis=1), encoder_output[0]], axis=2)
+            ), axis=1), encoder_output[0]), axis=1)
+            _, hidden, state = self.decoder(tf.expand_dims(tf.concat([x_t, hidden, attention_vector], axis=1), axis=1),
+                                            initial_state=[hidden, state])
+            # hidden = self.decoder(tf.expand_dims(x_t, axis=1), initial_state=[hidden, attention_vector])
             x_t = self.dense(tf.concat([hidden, attention_vector], axis=-1))
             seq_res.append(x_t)
         seq_res = tf.stack(seq_res, axis=1)
@@ -47,10 +54,10 @@ class SSIM(tf.keras.Model):
         return self.call(inputs)
 
 
-
 if __name__ == '__main__':
     a = tf.random.uniform([16, 5, 20, 3])
     model = SSIM(30, a.shape[1], a.shape[-1])
     b = model(a)
     print(b.shape)
+
 
